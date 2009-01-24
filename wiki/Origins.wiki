@@ -1,7 +1,7 @@
 #summary Where the project came from?
 #labels Featured
 
-= Code generation =
+== Code generation ==
 
 In one of the projects we had to write Java source code generator. Soon we realized that it would be very nice to have unit tests verifying generated output. Something which would compare results to predefined sources with content form expected for specific input arguments.
 
