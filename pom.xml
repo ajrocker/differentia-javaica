@@ -15,6 +15,7 @@
  limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <!-- SCM version: $Id$ -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>pl.ncdc.differentia</groupId>
   <artifactId>differentia-javaica</artifactId>
@@ -23,6 +24,14 @@
   <packaging>jar</packaging>
   <description>Finding differences between two Java source codes</description>
   <url>http://code.google.com/p/differentia-javaica/</url>
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
   <inceptionYear>2009</inceptionYear>
   <organization>
     <name>Nordic Consulting &amp; Development Company</name>
@@ -89,7 +98,7 @@
   <scm>
     <connection>scm:svn:http://differentia-javaica.googlecode.com/svn/trunk</connection>
     <developerConnection>scm:svn:https://differentia-javaica.googlecode.com/svn/trunk</developerConnection>
-    <url>http://differentia-javaica.googlecode.com/svn/trunk</url>
+    <url>http://code.google.com/p/differentia-javaica/source/browse/</url>
   </scm>
   <profiles>
     <profile>
