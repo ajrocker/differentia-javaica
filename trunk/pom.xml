@@ -87,7 +87,9 @@
     </plugins>
   </reporting>
   <scm>
-    <connection>scm:svn:https://differentia-javaica.googlecode.com/svn/trunk/</connection>
+    <connection>scm:svn:http://differentia-javaica.googlecode.com/svn/trunk</connection>
+    <developerConnection>scm:svn:https://differentia-javaica.googlecode.com/svn/trunk</developerConnection>
+    <url>http://differentia-javaica.googlecode.com/svn/trunk</url>
   </scm>
   <profiles>
     <profile>
