@@ -59,17 +59,37 @@
     </dependency>
   </dependencies>
   <build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <configuration>
-        <source>1.5</source>
-        <target>1.5</target>
-      </configuration>
-    </plugin>
-  </plugins>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <breakiterator>true</breakiterator>
+          <encoding>UTF-8</encoding>
+          <links>
+            <link>http://java.sun.com/javase/6/docs/api/</link>
+            <link>http://commons.apache.org/lang/api-2.4/</link>
+            <link>http://junit.sourceforge.net/javadoc/</link>
+          </links>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+  <scm>
+    <connection>scm:svn:https://differentia-javaica.googlecode.com/svn/trunk/</connection>
+  </scm>
   <profiles>
     <profile>
       <id>generate-java-parser</id>
