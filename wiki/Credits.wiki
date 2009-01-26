@@ -17,7 +17,7 @@ ANTLR stands for ANother Tool for Language Recognition, perfect tool for buildin
 
 == JSourceObjectizer ==
 
-This project provides very handy ANTLRv3 AST grammar for Java 1.5+
+This project provides very handy ANTLRv3 AST grammar for Java 1.5, which is used in this project
 
 http://www.habelitz.com/
 
