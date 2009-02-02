@@ -80,6 +80,14 @@
         <groupId>org.riedelcastro</groupId>
         <artifactId>gcupload-maven-plugin</artifactId>
         <version>0.9</version>
+        <configuration>
+          <uploads>
+            <upload>
+              <extension>jar</extension>
+              <labels>Featured</labels>
+            </upload>
+          </uploads>
+        </configuration>
       </plugin>
     </plugins>
   </build>
