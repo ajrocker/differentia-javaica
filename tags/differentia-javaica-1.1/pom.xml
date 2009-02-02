@@ -83,7 +83,7 @@
         <configuration>
           <uploads>
             <upload>
-              <extension>jar</extension>
+              <extensions>jar</extensions>
               <labels>Featured</labels>
             </upload>
           </uploads>
