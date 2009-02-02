@@ -201,26 +201,36 @@ public class Differentia {
     private static ComparisonResult compareChildren(final Tree expected, final Tree actual) {
         final int expectedChildCount = expected.getChildCount();
         final int actualChildCount = actual.getChildCount();
-        final ComparisonResult result;
-        if (expectedChildCount != actualChildCount) {
-        	result = DifferentiaUtils.getDifferenceResult(expected, actual);
-        } else {
-        	ComparisonResult childResult = null;
-            for (int i = 0; i < expectedChildCount; i++) {
-    			final Tree c1 = expected.getChild(i);
-    			final Tree c2 = actual.getChild(i);
-    			final ComparisonResult innerResult = compare(c1, c2);
-    			if (innerResult.isDifferent()) {
-    				childResult = innerResult;
-    				break;
-    			}
-    		}
-            if (childResult == null) {
-            	result = ComparisonResult.NO_DIFFERENCE;
-			} else {
-				result = childResult;
+        final int size = Math.min(expectedChildCount, actualChildCount);
+        ComparisonResult childResult = null;
+        for (int i = 0; i < size; i++) {
+			final Tree c1 = expected.getChild(i);
+			final Tree c2 = actual.getChild(i);
+			final ComparisonResult innerResult = compare(c1, c2);
+			if (innerResult.isDifferent()) {
+				childResult = innerResult;
+				break;
 			}
-        }
+		}
+        final ComparisonResult result;
+        if (childResult == null) {
+        	if (expectedChildCount != actualChildCount) {
+        		final Tree expectedTree;
+        		final Tree actualTree;
+        		if (expectedChildCount < actualChildCount) {
+        			expectedTree = expected;
+        			actualTree = actual.getChild(size);
+        		} else {
+        			expectedTree = expected.getChild(size);
+        			actualTree = actual;
+        		}
+        		result = DifferentiaUtils.getDifferenceResult(expectedTree, actualTree);
+        	} else {
+                result = ComparisonResult.NO_DIFFERENCE;        		
+        	}
+		} else {
+			result = childResult;
+		}
         return result;
     }
 
