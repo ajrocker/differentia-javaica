@@ -78,8 +78,8 @@
       </plugin>
       <plugin>
         <groupId>org.riedelcastro</groupId>
-        <artifactId>maven-gcupload-plugin</artifactId>
-        <version>1.0</version>
+        <artifactId>gcupload-maven-plugin</artifactId>
+        <version>0.9</version>
       </plugin>
     </plugins>
   </build>
