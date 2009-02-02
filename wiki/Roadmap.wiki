@@ -1,5 +1,5 @@
 #summary the future of differentia-javaica
-#labels Featured
+#labels Featured,Phase-Requirements
 
 Missing features: possibility of comparing java source codes where syntactic elements were reordered, but this reordering does not affect semantic structure. Example: reordering of class fields declarations.
 
