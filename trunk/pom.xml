@@ -20,7 +20,7 @@
   <groupId>pl.ncdc.differentia</groupId>
   <artifactId>differentia-javaica</artifactId>
   <name>differentia-javaica</name>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
   <description>Finding differences between two Java source codes</description>
   <url>http://code.google.com/p/differentia-javaica/</url>
@@ -96,9 +96,9 @@
     </plugins>
   </reporting>
   <scm>
-    <connection>scm:svn:http://differentia-javaica.googlecode.com/svn/trunk</connection>
-    <developerConnection>scm:svn:https://differentia-javaica.googlecode.com/svn/trunk</developerConnection>
-    <url>http://code.google.com/p/differentia-javaica/source/browse/</url>
+    <connection>scm:svn:http://differentia-javaica.googlecode.com/svn/tags/differentia-javaica-1.1</connection>
+    <developerConnection>scm:svn:https://differentia-javaica.googlecode.com/svn/tags/differentia-javaica-1.1</developerConnection>
+    <url>http://code.google.com/p/differentia-javaica/source/browse/tags/differentia-javaica-1.1</url>
   </scm>
   <profiles>
     <profile>
