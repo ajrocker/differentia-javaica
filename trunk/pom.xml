@@ -76,6 +76,11 @@
           <target>1.5</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.riedelcastro</groupId>
+        <artifactId>maven-gcupload-plugin</artifactId>
+        <version>1.0</version>
+      </plugin>
     </plugins>
   </build>
   <reporting>
