@@ -15,7 +15,13 @@
  */
 package pl.ncdc.differentia;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+
+import javax.annotation.Generated;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Assert;
@@ -24,8 +30,9 @@ import org.junit.Assert;
  * JUnit specific assert.
  * <p>
  * Created on Jan 19, 2009
- *
+ * 
  * @author hshsce
+ * @author lukasz.k.wolski
  * @version $Id$
  * @see Assert
  */
@@ -37,10 +44,17 @@ public class DifferentiaAssert {
 	 * @param actual the path to expected java source code.
 	 * @param expected the path to actual java source code.
 	 */
-	public static void assertSourceEquals(final String expected, final String actual) {
+	public static void assertSourcesEqual(final String expected, final String actual) {
+		assertSourcesEqual(expected, actual, false, false);
+	}
+
+	public static void assertSourcesEqual(final String expected, final String actual, final boolean debug, final boolean relaxed) {
+		final Differentia differentia = new Differentia();
+		differentia.setDebug(debug);
+		differentia.setRelaxed(relaxed);
 		final ComparisonResult result;
 		try {
-			result = Differentia.compare(expected, actual);
+			result = differentia.compare(expected, actual);
 		} catch (final IOException e) {
 			throw new RuntimeException("IO Exception while comparing java sources", e);
 		} catch (final RecognitionException e) {
@@ -49,6 +63,47 @@ public class DifferentiaAssert {
 		if (result.isDifferent()) {
 			Assert.fail("Java source codes differ: " + DifferentiaUtils.getDifferenceMessage(expected, actual, result));
 		}
+	}
+
+	public static void assertSourcesEqual(final Reader expected, final Reader actual) {
+		assertSourcesEqual(expected, actual, false, false);
+	}
+	
+	public static void assertSourcesEqual(final Reader expected, final Reader actual, final boolean debug, final boolean relaxed) {
+		final Differentia differentia = new Differentia();
+		differentia.setDebug(debug);
+		differentia.setRelaxed(relaxed);
+		final ComparisonResult result;
+		try {
+			result = differentia.compare(expected, actual);
+		} catch (final IOException e) {
+			throw new RuntimeException("IO Exception while comparing java sources", e);
+		} catch (final RecognitionException e) {
+			throw new RuntimeException("Parsing error while comparing java sources", e);
+		}
+		if (result.isDifferent()) {
+			Assert.fail("Java source codes differ: " + DifferentiaUtils.getDifferenceMessage("expected", "actual", result));
+		}
+	}
+
+	public static void assertSourcesAsStringsEqual(final String expected, final String actual) {
+		assertSourcesAsStringsEqual(expected, actual, false, false);
+	}
+
+	/**
+	 * Asserts that two java source codes are equal.
+	 * 
+	 * @param actual
+	 *            the path to expected java source code.
+	 * @param expected
+	 *            the path to actual java source code.
+	 * @param relaxed
+	 *            if <code>true</code> comparison will omit values of parameter
+	 *            <code>date</code> and parameter <code>comment</code> from
+	 *            annotation <code>Generated</code>.
+	 */
+	public static void assertSourcesAsStringsEqual(final String expected, final String actual, final boolean debug, final boolean relaxed) {
+		assertSourcesEqual(new StringReader(expected), new StringReader(actual), debug, relaxed);
 	}
 
 }
