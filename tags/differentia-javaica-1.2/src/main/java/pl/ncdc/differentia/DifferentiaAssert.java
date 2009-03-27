@@ -15,13 +15,9 @@
  */
 package pl.ncdc.differentia;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-
-import javax.annotation.Generated;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Assert;
