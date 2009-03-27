@@ -17,6 +17,13 @@ package pl.ncdc.differentia;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.StringWriter;
+
+import javax.annotation.Generated;
+
 import org.junit.Test;
 
 
@@ -34,27 +41,27 @@ public class DifferentiaAssertTest {
 	 * Test method for {@link DifferentiaAssert#assertSourceEquals(String, String)}: equal sources.
 	 */
 	@Test
-	public final void assertSourceEquals() {
-		DifferentiaAssert.assertSourceEquals(getPath("Foo"), getPath("Foo"));
+	public final void assertSourcesEqual() {
+		DifferentiaAssert.assertSourcesEqual(getPath("Foo"), getPath("Foo"));
 	}
 
 	/**
 	 * Test method for {@link DifferentiaAssert#assertSourceEquals(String, String)}: equal sources, different comments.
 	 */
 	@Test
-	public final void assertSourceEqualsDifferentComments() {
-		DifferentiaAssert.assertSourceEquals(getPath("Bar"), getFakePath("Bar"));
+	public final void assertSourcesEqualDifferentComments() {
+		DifferentiaAssert.assertSourcesEqual(getPath("Bar"), getFakePath("Bar"));
 	}
 
 	/**
 	 * Test method for {@link DifferentiaAssert#assertSourceEquals(String, String)}: different sources.
 	 */
 	@Test
-	public final void assertSourceEqualsDifference() {
+	public final void assertSourcesEqualDifference() {
 		boolean passed = false;
 		String msg = "";
 		try {
-			DifferentiaAssert.assertSourceEquals(getPath("Foo"), getPath("Bar"));
+			DifferentiaAssert.assertSourcesEqual(getPath("Foo"), getPath("Bar"));
 			passed = true;
 		} catch (final AssertionError e) {
 			msg = e.getMessage();
@@ -69,11 +76,11 @@ public class DifferentiaAssertTest {
 	 * Test method for {@link DifferentiaAssert#assertSourceEquals(String, String)}: different sources, small difference at the end.
 	 */
 	@Test
-	public final void assertSourceEqualsSmallDifferenceAtTheEnd() {
+	public final void assertSourcesEqualSmallDifferenceAtTheEnd() {
 		boolean passed = false;
 		String msg = "";
 		try {
-			DifferentiaAssert.assertSourceEquals(getPath("Buzz"), getFakePath("Buzz"));
+			DifferentiaAssert.assertSourcesEqual(getPath("Buzz"), getFakePath("Buzz"));
 			passed = true;
 		} catch (final AssertionError e) {
 			msg = e.getMessage();
@@ -82,6 +89,31 @@ public class DifferentiaAssertTest {
 			fail("No AssertionError was throw on comparison of different sources");
 		}
 		assertTrue("Incorrent message: " + msg, msg.matches("Java source codes differ: Difference\\[src/test/java/pl/ncdc/differentia/fake/Buzz\\.java\\[[0-9]+:[0-9]+\\]<->src/test/fake/pl/ncdc/differentia/fake/Buzz\\.java\\[[0-9]+:[0-9]+\\]\\]"));
+	}
+
+	/**
+	 * Test method for
+	 * {@link DifferentiaAssert#assertSourceEquals(String, String)}: almost
+	 * equal sources, unequal time stamp in @Generated.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public final void assertSourcesAsStringEqualRelaxedWithDifferentTimeStampInGeneratedAnnotation() throws Exception {
+		String expectedPath = getPath("FooBar");
+
+		String actualPath = getFakePath("FooBar");
+
+		DifferentiaAssert.assertSourcesEqual(expectedPath, actualPath, false, true);
+	}
+
+	@Test
+	public final void assertSourcesAsStringEqualRelaxedWithDifferentTimeStampInGeneratedAnnotation2() throws Exception {
+		String expectedPath = getPath("FooBar2");
+
+		String actualPath = getFakePath("FooBar2");
+
+		DifferentiaAssert.assertSourcesEqual(expectedPath, actualPath, false, true);
 	}
 
 	private String getPath(final String klass) {
