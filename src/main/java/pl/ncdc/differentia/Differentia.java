@@ -31,25 +31,42 @@ import org.antlr.runtime.tree.Tree;
 import pl.ncdc.differentia.antlr.JavaParser;
 
 /**
- * Differentia Javaica main class. It contains main CLI
- * class as well as crucial util methods.
+ * Differentia Javaica main class. It contains main CLI class as well as crucial
+ * util methods.
  * <p>
  * Created on Jan 17, 2009
- *
+ * 
  * @author hshsce
- * @version $Id$
+ * @version $Id: Differentia.java 38 2009-02-02 10:33:30Z robertlange2@gmail.com$
  */
 public class Differentia {
 
-	private Differentia() {
-		/* non-instantiable */
+	private boolean m_debug;
+
+	private boolean m_relaxed;
+
+	public void setDebug(boolean debug) {
+		m_debug = debug;
+	}
+
+	public boolean isDebug() {
+		return m_debug;
+	}
+
+	public void setRelaxed(boolean relaxed) {
+		m_relaxed = relaxed;
+	}
+
+	public boolean isRelaxed() {
+		return m_relaxed;
 	}
 
 	/**
-	 * Main method called by CLI. It accepts two elements array of
-	 * arguments denoting Java source code files to compare.
-	 *
-	 * @param args CLI arguments - files to compare.
+	 * Main method called by CLI. It accepts two elements array of arguments
+	 * denoting Java source code files to compare.
+	 * 
+	 * @param args
+	 *            CLI arguments - files to compare.
 	 * @see #compare(String, String)
 	 */
 	public static void main(final String[] args) {
@@ -58,85 +75,107 @@ public class Differentia {
 
 	/**
 	 * Compares two Java sources specified in strings.
-	 *
-	 * @param expected the expected source.
-	 * @param actual the actual source.
+	 * 
+	 * @param expected
+	 *            the expected source.
+	 * @param actual
+	 *            the actual source.
 	 * @return the comparison result.
-	 * @throws RecognitionException if parsing error occurs.
+	 * @throws RecognitionException
+	 *             if parsing error occurs.
 	 */
-    public static ComparisonResult compareStrings(final String expected, final String actual) throws RecognitionException {
-        return compare(new ANTLRStringStream(expected), new ANTLRStringStream(actual));
-    }
+	public ComparisonResult compareStrings(final String expected, final String actual) throws RecognitionException {
+		return compare(new ANTLRStringStream(expected), new ANTLRStringStream(actual));
+	}
 
 	/**
 	 * Compares two Java source files denoted by specified paths.
-	 *
-	 * @param expected the file containing expected source.
-	 * @param actual  the file containing actual source.
+	 * 
+	 * @param expected
+	 *            the file containing expected source.
+	 * @param actual
+	 *            the file containing actual source.
 	 * @return the comparison result.
-	 * @throws IOException in case of IO errors.
-	 * @throws RecognitionException if parsing error occurs.
+	 * @throws IOException
+	 *             in case of IO errors.
+	 * @throws RecognitionException
+	 *             if parsing error occurs.
 	 */
-    public static ComparisonResult compare(final String expected, final String actual) throws  IOException, RecognitionException {
-        return compare(new ANTLRFileStream(expected), new ANTLRFileStream(actual));
-    }
+	public ComparisonResult compare(final String expected, final String actual) throws IOException, RecognitionException {
+		return compare(new ANTLRFileStream(expected), new ANTLRFileStream(actual));
+	}
 
 	/**
 	 * Compares two Java sources provided via {@link InputStream}s.
-	 *
-	 * @param expected the expected source input stream.
-	 * @param actual the actual source input stream.
+	 * 
+	 * @param expected
+	 *            the expected source input stream.
+	 * @param actual
+	 *            the actual source input stream.
 	 * @return the comparison result.
-	 * @throws IOException in case of IO errors.
-	 * @throws RecognitionException if parsing error occurs.
+	 * @throws IOException
+	 *             in case of IO errors.
+	 * @throws RecognitionException
+	 *             if parsing error occurs.
 	 */
-    public static ComparisonResult compare(final InputStream expected, final InputStream actual) throws IOException, RecognitionException {
-    	return compare(new ANTLRInputStream(expected), new ANTLRInputStream(actual));
-    }
+	public ComparisonResult compare(final InputStream expected, final InputStream actual) throws IOException, RecognitionException {
+		return compare(new ANTLRInputStream(expected), new ANTLRInputStream(actual));
+	}
 
 	/**
 	 * Compares two Java sources provided via input {@link Reader}s.
-	 *
-	 * @param expected the expected source reader.
-	 * @param actual the actual source reader.
+	 * 
+	 * @param expected
+	 *            the expected source reader.
+	 * @param actual
+	 *            the actual source reader.
 	 * @return the comparison result.
-	 * @throws IOException in case of IO errors.
-	 * @throws RecognitionException if parsing error occurs.
+	 * @throws IOException
+	 *             in case of IO errors.
+	 * @throws RecognitionException
+	 *             if parsing error occurs.
 	 */
-    public static ComparisonResult compare(final Reader expected, final Reader actual) throws RecognitionException, IOException {
-        return compare(new ANTLRReaderStream(expected), new ANTLRReaderStream(actual));
-    }
+	public ComparisonResult compare(final Reader expected, final Reader actual) throws RecognitionException, IOException {
+		return compare(new ANTLRReaderStream(expected), new ANTLRReaderStream(actual));
+	}
 
 	/**
 	 * Compares two Java sources provided via input {@link CharStream}s.
-	 *
-	 * @param expected the expected source stream.
-	 * @param actual the actual source stream.
+	 * 
+	 * @param expected
+	 *            the expected source stream.
+	 * @param actual
+	 *            the actual source stream.
 	 * @return the comparison result.
-	 * @throws RecognitionException if parsing error occurs.
+	 * @throws RecognitionException
+	 *             if parsing error occurs.
 	 */
-    public static ComparisonResult compare(final CharStream expected, final CharStream actual) throws RecognitionException {
-        return compare(DifferentiaUtils.getParser(expected), DifferentiaUtils.getParser(actual));
-    }
+	public ComparisonResult compare(final CharStream expected, final CharStream actual) throws RecognitionException {
+		return compare(DifferentiaUtils.getParser(expected), DifferentiaUtils.getParser(actual));
+	}
 
 	/**
 	 * Compares two Java sources provided via input {@link JavaParser}s.
-	 *
-	 * @param expected the parser of expected source.
-	 * @param actual the parser of actual source.
+	 * 
+	 * @param expected
+	 *            the parser of expected source.
+	 * @param actual
+	 *            the parser of actual source.
 	 * @return the comparison result.
-	 * @throws RecognitionException if parsing error occurs.
+	 * @throws RecognitionException
+	 *             if parsing error occurs.
 	 */
-    public static ComparisonResult compare(final JavaParser expected, final JavaParser actual) throws RecognitionException {
-        return compare((CommonTree) expected.compilationUnit().getTree(), (CommonTree) actual.compilationUnit().getTree());
-    }
+	public ComparisonResult compare(final JavaParser expected, final JavaParser actual) throws RecognitionException {
+		return compare((CommonTree) expected.compilationUnit().getTree(), (CommonTree) actual.compilationUnit().getTree());
+	}
 
 	/**
 	 * Implementation of the main method. Unlike {@link #main(String[])} method
-	 * which calls {@link System#exit(int)} this method can be tested by
-	 * unit tests.
-	 *
-	 * @param args CLI arguments - files to compare.
+	 * which calls {@link System#exit(int)} this method can be tested by unit
+	 * tests.
+	 * 
+	 * @param args
+	 *            CLI arguments - files to compare.
 	 * @see #main(String[])
 	 * @return CLI exit code.
 	 */
@@ -148,7 +187,8 @@ public class Differentia {
 		} else {
 			final String expected = args[0];
 			final String actual = args[1];
-			final Result result = compareCheckingExceptions(expected, actual);
+			final Differentia differentia = new Differentia();
+			final Result result = differentia.compareCheckingExceptions(expected, actual);
 			if (result.m_exception != null) {
 				System.out.println("differentia-javaica: input error");
 				result.m_exception.printStackTrace();
@@ -166,7 +206,7 @@ public class Differentia {
 		return exitCode;
 	}
 
-	private static Result compareCheckingExceptions(final String expected, final String actual) {
+	private Result compareCheckingExceptions(final String expected, final String actual) {
 		final Result result = new Result();
 		try {
 			result.m_result = compare(expected, actual);
@@ -178,32 +218,60 @@ public class Differentia {
 		return result;
 	}
 
-    private static ComparisonResult compare(final Tree expected, final Tree actual) {
-    	final String expectedText = expected.getText();
-    	final String actualText = actual.getText();
-    	final ComparisonResult result;
-    	if (expectedText == null) {
-    		if (actualText != null) {
-            	result = DifferentiaUtils.getDifferenceResult(expected, actual);
-    		} else {
-    			result = compareChildren(expected, actual);
-    		}
-    	} else {
-            if (expectedText.equals(actualText)) {
-            	result = compareChildren(expected, actual);
-            } else {
-            	result = DifferentiaUtils.getDifferenceResult(expected, actual);
-            }
-    	}
-    	return result;
-    }
+	private ComparisonResult compare(final Tree expected, final Tree actual) {
+		if (m_debug) {
+			System.out.println(getNodeName(expected));
+		}
+		final String expectedText = expected.getText();
+		final String actualText = actual.getText();
 
-    private static ComparisonResult compareChildren(final Tree expected, final Tree actual) {
-        final int expectedChildCount = expected.getChildCount();
-        final int actualChildCount = actual.getChildCount();
-        final int size = Math.min(expectedChildCount, actualChildCount);
-        ComparisonResult childResult = null;
-        for (int i = 0; i < size; i++) {
+		final ComparisonResult result;
+		if (expectedText == null) {
+			if (actualText != null) {
+				result = DifferentiaUtils.getDifferenceResult(expected, actual);
+			} else {
+				result = compareChildren(expected, actual);
+			}
+		} else if (m_relaxed && isGeneratedAnnotation(expected)) {
+			result = ComparisonResult.NO_DIFFERENCE;
+		} else {
+			if (expectedText.equals(actualText)) {
+				result = compareChildren(expected, actual);
+			} else {
+				result = DifferentiaUtils.getDifferenceResult(expected, actual);
+			}
+		}
+		return result;
+	}
+
+	private boolean isGeneratedAnnotation(Tree expected) {
+		final String name = getNodeName(expected);
+		return (name.endsWith("ANNOTATION_INIT_BLOCK") && hasGeneratedSibling(expected));
+	}
+
+	private boolean hasGeneratedSibling(Tree expected) {
+		Tree node = expected;
+		while (!node.getText().equals("@")) {
+			node = node.getParent();
+		}
+		int size = node.getChildCount();
+		boolean found = false;
+		for (int i = 0; i < size; i++) {
+			if (node.getChild(i).getText().equals("Generated")) {
+				found = true;
+				break;
+			}
+		}
+		
+		return found;
+	}
+
+	private ComparisonResult compareChildren(final Tree expected, final Tree actual) {
+		final int expectedChildCount = expected.getChildCount();
+		final int actualChildCount = actual.getChildCount();
+		final int size = Math.min(expectedChildCount, actualChildCount);
+		ComparisonResult childResult = null;
+		for (int i = 0; i < size; i++) {
 			final Tree c1 = expected.getChild(i);
 			final Tree c2 = actual.getChild(i);
 			final ComparisonResult innerResult = compare(c1, c2);
@@ -212,31 +280,41 @@ public class Differentia {
 				break;
 			}
 		}
-        final ComparisonResult result;
-        if (childResult == null) {
-        	if (expectedChildCount != actualChildCount) {
-        		final Tree expectedTree;
-        		final Tree actualTree;
-        		if (expectedChildCount < actualChildCount) {
-        			expectedTree = expected;
-        			actualTree = actual.getChild(size);
-        		} else {
-        			expectedTree = expected.getChild(size);
-        			actualTree = actual;
-        		}
-        		result = DifferentiaUtils.getDifferenceResult(expectedTree, actualTree);
-        	} else {
-                result = ComparisonResult.NO_DIFFERENCE;        		
-        	}
+		final ComparisonResult result;
+		if (childResult == null) {
+			if (expectedChildCount != actualChildCount) {
+				final Tree expectedTree;
+				final Tree actualTree;
+				if (expectedChildCount < actualChildCount) {
+					expectedTree = expected;
+					actualTree = actual.getChild(size);
+				} else {
+					expectedTree = expected.getChild(size);
+					actualTree = actual;
+				}
+				result = DifferentiaUtils.getDifferenceResult(expectedTree, actualTree);
+			} else {
+				result = ComparisonResult.NO_DIFFERENCE;
+			}
 		} else {
 			result = childResult;
 		}
-        return result;
-    }
+		return result;
+	}
 
-    static class Result {
-    	ComparisonResult m_result;
-    	Exception m_exception;
-    }
+	private String getNodeName(Tree tree) {
+		final String name;
+		if (tree.getParent() == null) {
+			name = "";
+		} else {
+			name = getNodeName(tree.getParent()) + ":" + tree.getText();
+		}
+		return name;
+	}
+
+	static class Result {
+		ComparisonResult m_result;
+		Exception m_exception;
+	}
 
 }
