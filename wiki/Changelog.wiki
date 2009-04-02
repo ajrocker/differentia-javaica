@@ -1,6 +1,11 @@
 #summary Changes in the project
 #labels Featured
 
+== 1.2 ==
+
+ * Validation is relaxed for content of @Generated annotation
+ * Some API changes, more coherent method naming by cost of braking down-compatibility
+
 == 1.1 ==
 
  * More precise error specification when number of children in AST tree differs
