@@ -1,6 +1,8 @@
 #summary What influenced differentia-javaica development
 #labels Featured
 
+See [Origins]
+
 == Generama ==
 
 I found interesting stuff in Generama project:
