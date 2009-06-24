@@ -17,13 +17,6 @@ package pl.ncdc.differentia;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.StringWriter;
-
-import javax.annotation.Generated;
-
 import org.junit.Test;
 
 
@@ -95,7 +88,7 @@ public class DifferentiaAssertTest {
 	 * Test method for
 	 * {@link DifferentiaAssert#assertSourceEquals(String, String)}: almost
 	 * equal sources, unequal time stamp in @Generated.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@Test
@@ -112,6 +105,24 @@ public class DifferentiaAssertTest {
 		String expectedPath = getPath("FooBar2");
 
 		String actualPath = getFakePath("FooBar2");
+
+		DifferentiaAssert.assertSourcesEqual(expectedPath, actualPath, false, true);
+	}
+
+	@Test
+	public final void assertSourcesAsStringEqualRelaxedWithDifferentPackageName() throws Exception {
+		String expectedPath = getPath("FooBar");
+
+		String actualPath = getPath("another/FooBar");
+
+		DifferentiaAssert.assertSourcesEqual(expectedPath, actualPath, false, true);
+	}
+
+	@Test
+	public final void assertSourcesAsStringEqualRelaxedWithDifferentPackageNameAndTimeStampInGeneratedAnnotation() throws Exception {
+		String expectedPath = getPath("FooBar2");
+
+		String actualPath = getPath("another/FooBar2");
 
 		DifferentiaAssert.assertSourcesEqual(expectedPath, actualPath, false, true);
 	}

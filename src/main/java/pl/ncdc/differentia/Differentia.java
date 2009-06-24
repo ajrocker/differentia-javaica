@@ -35,7 +35,7 @@ import pl.ncdc.differentia.antlr.JavaParser;
  * util methods.
  * <p>
  * Created on Jan 17, 2009
- * 
+ *
  * @author hshsce
  * @version $Id: Differentia.java 38 2009-02-02 10:33:30Z robertlange2@gmail.com$
  */
@@ -64,7 +64,7 @@ public class Differentia {
 	/**
 	 * Main method called by CLI. It accepts two elements array of arguments
 	 * denoting Java source code files to compare.
-	 * 
+	 *
 	 * @param args
 	 *            CLI arguments - files to compare.
 	 * @see #compare(String, String)
@@ -75,7 +75,7 @@ public class Differentia {
 
 	/**
 	 * Compares two Java sources specified in strings.
-	 * 
+	 *
 	 * @param expected
 	 *            the expected source.
 	 * @param actual
@@ -90,7 +90,7 @@ public class Differentia {
 
 	/**
 	 * Compares two Java source files denoted by specified paths.
-	 * 
+	 *
 	 * @param expected
 	 *            the file containing expected source.
 	 * @param actual
@@ -107,7 +107,7 @@ public class Differentia {
 
 	/**
 	 * Compares two Java sources provided via {@link InputStream}s.
-	 * 
+	 *
 	 * @param expected
 	 *            the expected source input stream.
 	 * @param actual
@@ -124,7 +124,7 @@ public class Differentia {
 
 	/**
 	 * Compares two Java sources provided via input {@link Reader}s.
-	 * 
+	 *
 	 * @param expected
 	 *            the expected source reader.
 	 * @param actual
@@ -141,7 +141,7 @@ public class Differentia {
 
 	/**
 	 * Compares two Java sources provided via input {@link CharStream}s.
-	 * 
+	 *
 	 * @param expected
 	 *            the expected source stream.
 	 * @param actual
@@ -156,7 +156,7 @@ public class Differentia {
 
 	/**
 	 * Compares two Java sources provided via input {@link JavaParser}s.
-	 * 
+	 *
 	 * @param expected
 	 *            the parser of expected source.
 	 * @param actual
@@ -173,7 +173,7 @@ public class Differentia {
 	 * Implementation of the main method. Unlike {@link #main(String[])} method
 	 * which calls {@link System#exit(int)} this method can be tested by unit
 	 * tests.
-	 * 
+	 *
 	 * @param args
 	 *            CLI arguments - files to compare.
 	 * @see #main(String[])
@@ -232,7 +232,7 @@ public class Differentia {
 			} else {
 				result = compareChildren(expected, actual);
 			}
-		} else if (m_relaxed && isGeneratedAnnotation(expected)) {
+		} else if (m_relaxed && (isPackage(expected) || isGeneratedAnnotation(expected))) {
 			result = ComparisonResult.NO_DIFFERENCE;
 		} else {
 			if (expectedText.equals(actualText)) {
@@ -242,6 +242,10 @@ public class Differentia {
 			}
 		}
 		return result;
+	}
+
+	private boolean isPackage(Tree expected) {
+		return getNodeName(expected).matches(":package");
 	}
 
 	private boolean isGeneratedAnnotation(Tree expected) {
@@ -262,7 +266,7 @@ public class Differentia {
 				break;
 			}
 		}
-		
+
 		return found;
 	}
 

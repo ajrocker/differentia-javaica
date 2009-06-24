@@ -44,6 +44,16 @@ public class DifferentiaAssert {
 		assertSourcesEqual(expected, actual, false, false);
 	}
 
+	/**
+	 * Asserts that two java source codes are equal but package names and
+	 * content of <code>@Generated</code> annotation may differ.
+	 * 
+	 * @param actual the path to expected java source code.
+	 * @param expected the path to actual java source code.
+	 * @param debug print syntax tree to standard output if true
+	 * @param relaxed true if package names and <code>@Generated</code> annotation
+	 * 				  may differ, false otherwise
+	 */
 	public static void assertSourcesEqual(final String expected, final String actual, final boolean debug, final boolean relaxed) {
 		final Differentia differentia = new Differentia();
 		differentia.setDebug(debug);
