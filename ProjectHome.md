@@ -1,0 +1,3 @@
+The aim of this project is to compare two java source codes and check if they are equal. It is not a simple diff. It uses ANTLR to construct two Abstract Source Trees for java types and eventually compare these trees. As a consequence white spaces and comments will not affect comparison. Reordering of elements in source code will be treated as difference though.
+
+This kind of comparison is especially helpful when writing unit tests for java source code generators. When we have expected source code it is possible to check if it equals to generated source code.
